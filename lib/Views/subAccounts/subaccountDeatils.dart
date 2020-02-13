@@ -143,7 +143,64 @@ class _SubAccountDetailsState extends State<SubAccountDetails> {
                         ),
                       ),
                     ),
-                  ])
+                  ]),
+                  TableRow(
+                    children: [
+                      TableCell(
+                        child: Container(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
+                            child: Text("value",
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white70)),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Container(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
+                            child: Text("value",
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white70)),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Container(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
+                            child: Text("value",
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white70)),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Container(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
+                            child: Text("value",
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white70)),
+                          ),
+                        ),
+                      ),
+
+                    ]
+                  )
                 ],
               ),
             ),
