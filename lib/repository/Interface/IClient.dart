@@ -1,0 +1,3 @@
+abstract class IClient {
+  searchClient();
+}

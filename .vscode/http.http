@@ -1,0 +1,2 @@
+GET https://192.168.100.157:5001/api/Coupons/GetArchivedCoupons?accountId=4 HTTP/1.1
+Content-Type: application/json

@@ -1,0 +1,26 @@
+[
+  {
+    "line": 1,
+    "productName": "Petrol",
+    "countryName": "Japan",
+    "countryNameAbrev": "JPN",
+    "isoCode": "JP",
+    "quantity": 20.0
+  },
+  {
+    "line": 2,
+    "productName": "Diesel",
+    "countryName": "Japan",
+    "countryNameAbrev": "JPN",
+    "isoCode": "JP",
+    "quantity": 40.0
+  },
+  {
+    "line": 3,
+    "productName": "Unlead Petrol",
+    "countryName": "Japan",
+    "countryNameAbrev": "JPN",
+    "isoCode": "JP",
+    "quantity": 10.0
+  }
+]
