@@ -5,6 +5,7 @@ class UserModel {
   String username;
   int countryId;
   String email;
+  String userId;
 
   UserModel(
       {this.message,
@@ -12,7 +13,8 @@ class UserModel {
       this.accountID,
       this.username,
       this.countryId,
-      this.email});
+      this.email,
+      this.userId});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
@@ -31,6 +33,7 @@ class UserModel {
     data['username'] = this.username;
     data['countryId'] = this.countryId;
     data['email'] = this.email;
+    data['userId'] = this.userId;
     return data;
   }
 }

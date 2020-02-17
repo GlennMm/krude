@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:krude_digital/Views/subAccounts/editSubAccount.dart';
 import 'package:krude_digital/config.dart';
+import 'package:krude_digital/models/SubAcccount.dart';
 import 'package:krude_digital/repository/Interface/IAccount.dart';
 
 class AccountRepository implements IAccount {
   Dio _dio = new Dio();
   Config _config = new Config();
-  List<SubAccount> subAccounts;
+  List<SubAccount> subAccounts = [];
 
   AccountRepository(){
     _dio.onHttpClientCreate = (HttpClient client) {
@@ -17,13 +17,10 @@ class AccountRepository implements IAccount {
         return true;
       };
     };
-
-    // data intialisation
-    getSubAccounts();
   }
 
   @override
-  assignBeneficiary() {
+  assignBeneficiary() async {
     // TODO: implement assignBeneficiary
     return null;
   }
@@ -71,14 +68,19 @@ class AccountRepository implements IAccount {
   }
 
   @override
-  getSubAccounts() async {
+  getSubAccounts(int accountId, int countryId, String userId) async {
     // TODO: implement getSubAccounts
-    _dio.get(_config.baseUrl + '/Account/GetSubAccounts').then((response){
-      print(response.data);
+    _dio.get(_config.baseUrl + '/Account/GetSubAccounts?accountId=$accountId&countryId=0&user=$userId').then((response){
+      // print(response.data);
+      List msubAccounts = response.data as List;
+      this.subAccounts = [];
+      msubAccounts.forEach((element) {
+        this.subAccounts.add(new SubAccount.fromJson(element));
+      });
+      return;
     }).catchError((err){
-      print(err.toString());
+      return print(err);
     });
-    return null;
   }
 
   @override

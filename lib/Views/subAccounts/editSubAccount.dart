@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:krude_digital/config.dart';
 import 'package:krude_digital/models/Country.dart';
+import 'package:krude_digital/models/SubAcccount.dart';
 
 class EditSubAccount extends StatefulWidget {
   String username;
@@ -61,14 +62,14 @@ class _EditSubAccountState extends State<EditSubAccount> {
           .then((resp) {
         for (var item in resp.data) {
           setState(() {
-            SubAccount acc = SubAccount();
-            acc.AccountId = item['accountID'];
-            acc.AccountName = item['accountName'];
-            acc.AccountNumber = item['accountNo'];
-            acc.AcountTypeId = item['accountTypeID'];
-            acc.CountryId = item['countryID'];
-            acc.CountryName = item['countryName'];
-            subAccounts.add(acc);
+            // SubAccount acc = SubAccount();
+            // acc.AccountId = item['accountID'];
+            // acc.AccountName = item['accountName'];
+            // acc.AccountNumber = item['accountNo'];
+            // acc.AcountTypeId = item['accountTypeID'];
+            // acc.CountryId = item['countryID'];
+            // acc.CountryName = item['countryName'];
+            // subAccounts.add(acc);
           });
         }
       });
@@ -119,7 +120,7 @@ class _EditSubAccountState extends State<EditSubAccount> {
           color: Color(0xff213E4A),
         ),
         onTap: () {
-          _showDialog(account);
+  
         },
       );
 
@@ -354,113 +355,12 @@ class _EditSubAccountState extends State<EditSubAccount> {
             ],
           ),
         ),
-        body: ListView.builder(
-            itemCount: subAccounts.length,
-            itemBuilder: (BuildContext ctxt, int index) {
-              SubAccount account = subAccounts[index];
-              var title = subAccounts[index].AccountName;
-              var subTitle =
-                  '${subAccounts[index].AccountNumber} (${subAccounts[index].CountryName})';
-
-              return _tile(account, title, subTitle, Icons.person_outline);
-            }));
+        body: Container(
+          child: Text("Sub accounts edit here"),
+        )
+        );
   }
 
-  _showDialog(SubAccount account) async {
-    var newAccountName = new TextEditingController();
-    var newCountry;
-    var oldCountryName = account.CountryName;
 
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            actions: <Widget>[
-              new Row(
-                children: <Widget>[
-                  ButtonBar(
-                    children: <Widget>[
-                      FlatButton(
-                        color: Colors.redAccent,
-                        child: Text(
-                          "Cancel",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          newAccountName = null;
-                          newCountry = null;
-                          Navigator.of(context).pop();
-                        },
-                        padding: EdgeInsets.all(10.0),
-                      ),
-                      SizedBox(
-                        width: 100,
-                      ),
-                      FlatButton(
-                        color: Color(0xff213E4A),
-                        child: Text(
-                          "Save",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          SaveSubAccount(newAccountName, newCountry) {}
-                          newAccountName = null;
-                          newCountry = null;
-                        },
-                        padding: EdgeInsets.all(10.0),
-                      ),
-                    ],
-                  )
-                ],
-              )
-            ],
-            content: Container(
-                height: 200,
-                width: 200,
-                child: Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: new ListView(
-                    children: <Widget>[
-                      TextFormField(
-                        controller: newAccountName,
-                        decoration: InputDecoration(
-                          labelText: '${account.AccountName}',
-                          border: InputBorder.none,
-                        ),
-                      ),
-                      DropdownButton(
-                        items: countries
-                            .map<DropdownMenuItem<Country>>((Country value) {
-                          return DropdownMenuItem<Country>(
-                            value: value,
-                            child: Text(value.countryName),
-                          );
-                        }).toList(),
-                        onChanged: (Country value) {
-                          setState(() {
-                            newCountry = value.countryName;
-                          });
-                        },
-                        hint: Text(newCountry ?? oldCountryName),
-                      ),
-                    ],
-                  ),
-                )));
-      },
-    );
-  }
-
-  void SaveSubAccount(TextEditingController newAccountName, newCountry) {}
 }
 
-class SubAccount {
-  String AccountName;
-  String AccountNumber;
-  int AccountId;
-  int AcountTypeId;
-  String CountryName;
-  int CountryId;
-  DateTime CreatedAt;
-}

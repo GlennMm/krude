@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:krude_digital/Views/components/appbar.dart';
+import 'package:krude_digital/repository/ClientProductRepository.dart';
 import 'package:krude_digital/repository/LoggedUser.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
+import 'package:krude_digital/models/SubAcccount.dart';
 
 class SubAccountDetails extends StatefulWidget {
-  SubAccountDetails({Key key}) : super(key: key);
+  SubAccount subAccount;
+  SubAccountDetails(this.subAccount, {Key key}) : super(key: key);
 
   @override
-  _SubAccountDetailsState createState() => _SubAccountDetailsState();
+  _SubAccountDetailsState createState() => _SubAccountDetailsState(subAccount);
 }
 
 class _SubAccountDetailsState extends State<SubAccountDetails> {
+
+  SubAccount subAccount;
+
   var user = Injector.getAsReactive<LoggedInUserRepository>();
+  var clientProduct = Injector.getAsReactive<ClientProductRepository>();
+
+  _SubAccountDetailsState(this.subAccount){
+    clientProduct.setState((model) => {
+      model.getSubAccountBalance()
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +52,7 @@ class _SubAccountDetailsState extends State<SubAccountDetails> {
                 children: <Widget>[
                   Center(
                       child: Text(
-                    "Sub Account Name",
+                    "${subAccount.accountName}",
                     style: TextStyle(
                       fontSize: 20,
                       color: Color(0xff355664),
@@ -57,19 +70,25 @@ class _SubAccountDetailsState extends State<SubAccountDetails> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "Parent Account :             Total",
+                          "Station Name :                ${subAccount.accountName}",
                           style: TextStyle(
                             color: Color(0xff355664),
                           ),
                         ),
                         Text(
-                          "Station Name :                Total Seven Mile Station",
+                          "Account Number :           ${subAccount.accountID}",
                           style: TextStyle(
                             color: Color(0xff355664),
                           ),
                         ),
                         Text(
-                          "Account Number :           000 000 001",
+                          "Country:                            ${subAccount.countryName}",
+                          style: TextStyle(
+                            color: Color(0xff355664),
+                          ),
+                        ),
+                        Text(
+                          "Created:                            ${subAccount.createdDate}",
                           style: TextStyle(
                             color: Color(0xff355664),
                           ),

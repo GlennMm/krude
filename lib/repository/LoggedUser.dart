@@ -26,22 +26,24 @@ class LoggedInUserRepository implements ILoggedUser {
     bool success;
     // await this
     //     ._dio
-    //     .post(_config.baseUrl + '/MobileAppApi/Login?username=${username.toLowerCase().trim()}&password=${password.toLowerCase().trim()}')
+    //     .post(_config.baseUrl +
+    //         '/MobileAppApi/Login?username=${username.toLowerCase().trim()}&password=${password.toLowerCase().trim()}')
     //     .then((result) {
     //   loggedInUser = new UserModel.fromJson(result.data);
-    //   success = true;
+    //   return true;
     // }).catchError((error) {
     //   print(error);
-    //   success = false;
+    //   return false;
     // }).timeout(Duration(seconds: 30));
     loggedInUser = new UserModel(
-        accountID: 1,
-        username: "Glenn",
-        accountTypeID: 1,
-        countryId: 250,
-        email: 'vamdara@gmail.com',
-        message: 'success');
-    return success = true;
+        accountID: 10004,
+        username: "COMP2",
+        accountTypeID: 0,
+        countryId: 132,
+        email: 'comp2@gmail.com',
+        message: 'success',
+        userId: '0a0fedf4-e344-4c64-883f-4ea0b285906e');
+    return true;
   }
 
   @override

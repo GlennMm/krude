@@ -1,7 +1,7 @@
 abstract class IAccount {
   getAccountById();
   assignBeneficiary();
-  getSubAccounts();
+  getSubAccounts(int accountId, int countryId, String userId);
   saveAccount();
   createMasterAccount();
   searchForAccount();

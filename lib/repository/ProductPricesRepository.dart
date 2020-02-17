@@ -34,7 +34,6 @@ class ProductPricesRepository implements IProductPrices {
     }).catchError((error) {
       return print(error);
     });
-    print(groupedCountry);
   }
 
   @override

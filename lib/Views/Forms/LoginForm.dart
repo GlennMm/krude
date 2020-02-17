@@ -17,6 +17,7 @@ class _LoginFormState extends State<LoginForm> {
   // Form fields controllers
   final username = new TextEditingController();
   final password = new TextEditingController();
+  var authVar = Injector.getAsReactive<LoggedInUserRepository>();
 
   @override
   Widget build(BuildContext context) {
@@ -97,8 +98,7 @@ class _LoginFormState extends State<LoginForm> {
                             elevation: 7.0,
                             child: GestureDetector(
                               onTap: () async {
-                                var invalid =
-                                    loginFormValidator(username, password);
+                                var invalid = loginFormValidator(username, password);
                                 if (invalid != null) {
                                   return showDialog(
                                       context: context,
@@ -126,28 +126,19 @@ class _LoginFormState extends State<LoginForm> {
                                       });
                                 }
                                 loggingIn(context);
-                                var authVar = Injector.getAsReactive<
-                                    LoggedInUserRepository>();
 
                                 await authVar.state.login(
                                   username.text.toString().trim(),
                                   password.text.toString().trim()
                                 );
-
                                 if (authVar.state.loggedInUser == null) {
                                   Navigator.pop(context);
                                   return dialog(context, "Failed to login");
                                 }
-                                var user = authVar.state.loggedInUser;
-                                Navigator.pop(context);
-                                dialog(context, "Logged in succesfully ");
-                                username.text = null;
-                                password.text = null;
-
-                                var clieProdRepo = Injector.getAsReactive<ClientProductRepository>();
-
-                                clieProdRepo.state.getBalance(user.accountID, user.countryId, 1);
-                                Navigator.pop(context);
+                                setState(() {
+                                  username.text = '';
+                                  password.text = '';
+                                });
                                 return Navigator.push( context, MaterialPageRoute(builder: (context) => Dashboard()));
                               },
                               child: Center(

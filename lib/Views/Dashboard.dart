@@ -5,6 +5,7 @@ import 'package:krude_digital/Views/components/appbar.dart';
 import 'package:krude_digital/Views/components/ui_function.dart';
 import 'package:krude_digital/Views/subAccounts/subaccountDeatils.dart';
 import 'package:krude_digital/models/Summary.dart';
+import 'package:krude_digital/repository/AccountRepository.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 import 'package:krude_digital/Views/subAccounts/editSubAccount.dart';
@@ -15,7 +16,8 @@ import '../models/ProductPrice.dart';
 import 'PurchaseFuel.dart' as PF;
 import 'TransferFuel.dart' as TF;
 import "package:collection/collection.dart";
-import 'package:charts_flutter/flutter.dart' as charts;
+
+import 'subAccounts/components/sub-account-list.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key key}) : super(key: key);
@@ -44,12 +46,16 @@ class _DashboardState extends State<Dashboard> {
   var prodPrices = Injector.getAsReactive<ProductPricesRepository>();
   var clieProdRepo = Injector.getAsReactive<ClientProductRepository>();
   var user = Injector.getAsReactive<LoggedInUserRepository>();
+  var accountRepo = Injector.getAsReactive<AccountRepository>();
   var chartData;
 
   getClientProducts() async {
     await clieProdRepo.setState((model) async {
       return await model.getBalance(user.state.loggedInUser.accountID,
-          user.state.loggedInUser.countryId, 1);
+        user.state.loggedInUser.countryId, 1);
+    });
+    prodPrices.setState((model) async {
+      return await model.getAll();
     });
     chartData = groupBy(
         clieProdRepo.state.summaryList, (Summary item) => item.countryName);
@@ -58,6 +64,9 @@ class _DashboardState extends State<Dashboard> {
 
   _DashboardState() {
     getClientProducts();
+    accountRepo.setState((model) async {
+      return await model.getSubAccounts(user.state.loggedInUser.accountID, user.state.loggedInUser.countryId, user.state.loggedInUser.userId);
+    });
   }
 
   @override
@@ -76,6 +85,29 @@ class _DashboardState extends State<Dashboard> {
             );
             break;
           case ConnectionState.none:
+            return Scaffold(
+              appBar: appBar(),
+              drawer: drawer(context, user),
+              body: Container(
+                child: Center(
+                  child: Column(
+                    children: <Widget>[
+                      Icon(Icons.error_outline, size: 50, color: Colors.red,),
+                      Text("Something Wrong Happened! Try again your last action", style: TextStyle(color: Colors.red)),
+                    ],
+                  )
+                ),
+              ));
+            break;
+          case ConnectionState.waiting:
+            return Scaffold(
+              body: Center(
+
+                child: CircularProgressIndicator(),
+              ),
+            );
+            break;
+          case ConnectionState.done:
             return Scaffold(
               appBar: appBar(),
               drawer: drawer(context, user),
@@ -106,42 +138,20 @@ class _DashboardState extends State<Dashboard> {
                           child: ChartExample.withSampleData(chartData)),
                     ),
                   ),
-                  // MaterialButton(
-                  //     child: Container(
-                  //       color: Color(0xff213E4A),
-                  //       child: Padding(
-                  //         padding: const EdgeInsets.all(10.0),
-                  //         child: Text(
-                  //           "Refresh Data",
-                  //           style: TextStyle(color: Colors.white),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     onPressed: () async {
-                  //       print("refreshing");
-                  //       getClientProducts();
-                  //       print("done");
-                  //     }),
-                  // RaisedButton(
-                  //     child: Text("OPEN SCANNER"),
-                  //     onPressed: () {
-                  //       Navigator.pushNamed(context, '/qr_scan');
-                  //     }),
                   Divider(
                     indent: 100,
                     endIndent: 100,
                     color: Color(0xff213E4A),
                   ),
-
-                  Card(
-                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-                    elevation: 3,
-                    child:
-                        productPricesTable(prodPrices.state.groupedCountry) ??
-                            Text("Information not found"),
-                  ),
-                  // subAccountsContainer(context, []),
-                  // QUICK NAVIFGATION BAR
+                  if (prodPrices.state.groupedCountry == null)
+                    Text("Failed to fetch product price list"),
+                  if (prodPrices.state.groupedCountry != null)
+                    Card(
+                        margin:
+                            EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+                        elevation: 3,
+                        child: productPricesTable(prodPrices
+                            .state.groupedCountry)), // QUICK NAVIFGATION BAR
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                     height: 200.0,
@@ -261,86 +271,11 @@ class _DashboardState extends State<Dashboard> {
                       ],
                     ),
                   ),
+                  subAccountsList(context, accountRepo.state.subAccounts),
 
-
-                  Container(
-                    // margin: EdgeInsets.all(5.0),
-                    height: 200.0,
-                    child: Padding(
-                        padding: const EdgeInsets.all(1.0),
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: <Widget>[
-
-                            for (var i = 0; i < 5; i++) Container(
-                                    width: 160.0,
-                                    child: FlatButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => SubAccountDetails()
-                                          )
-                                        );
-                                      },
-                                      padding: EdgeInsets.all(5.0),
-                                      child: Card(
-                                        // elevation: 5,
-                                        child: Container(
-                                          width: 130,
-                                          height: 130,
-                                          padding: EdgeInsets.all(20),
-                                          child: Column(
-                                            children: <Widget>[
-                                              Row(
-                                                children: <Widget>[
-                                                  Icon(
-                                                    Icons.contact_mail,
-                                                    color: Color(0xff355664),
-                                                    size: 40,
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(height: 10,),
-                                              Text(
-                                                "Sub Accounts ${i+1}",
-                                                style:
-                                                  TextStyle(color: Color(0xff213E4A)),
-                                              ),
-                                              SizedBox(height: 5,),
-                                              Text("000 000 00${i+1}",
-                                                style:
-                                                  TextStyle(color: Color(0xff213E4A)))
-
-
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-
-
-
-
-
-
-                          ],
-                        ),
-                    ),
-                  )
+                    SizedBox(height: 30,)
                 ],
               )),
-            );
-            break;
-          case ConnectionState.waiting:
-            return Scaffold(
-              body: Text("waiting"),
-            );
-            break;
-          case ConnectionState.done:
-            return Scaffold(
-              body: Text("done"),
             );
             break;
           default:

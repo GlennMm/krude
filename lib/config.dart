@@ -1,5 +1,5 @@
 class Config {
-  final String address = '192.168.100.152';
+  final String address = '10.0.2.2';
   String baseUrl;
 
   Config() {

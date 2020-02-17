@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:krude_digital/models/Summary.dart';
 
 class IconRender extends charts.CustomSymbolRenderer {
   IconData iconData;
@@ -45,9 +44,9 @@ class ChartExample extends StatelessWidget {
     List<ChartBarGroup> blenddata = [];
 
     data.forEach((key, value) {
-      petroldata.add(new ChartBarGroup(key, data[key][0].quantity));
-      dieselData.add(new ChartBarGroup(key, data[key][1].quantity));
-      blenddata.add(new ChartBarGroup(key, data[key][2].quantity));
+      petroldata.add(new ChartBarGroup(key, data[key][0].quantity ??= 0));
+      dieselData.add(new ChartBarGroup(key, data[key][1].quantity ??= 0));
+      blenddata.add(new ChartBarGroup(key, data[key][2].quantity ??= 0));
     });
 
     return [

@@ -1,6 +1,5 @@
 import 'dart:io';
-import 'dart:convert' as convert;
-import 'package:http/http.dart' as http;
+
 import 'package:dio/dio.dart';
 import 'package:krude_digital/config.dart';
 import 'package:krude_digital/models/ClientProduct.dart';
@@ -34,7 +33,6 @@ class ClientProductRepository implements IClientProduct {
    }).catchError((err){
      print(err);
    });
-
   }
 
   @override
@@ -44,9 +42,13 @@ class ClientProductRepository implements IClientProduct {
   }
 
   @override
-  getSubAccountBalance() {
+  getSubAccountBalance() async {
     // TODO: implement getSubAccountBalance
-    return null;
+    await _dio.get(_config.baseUrl + '/ClientProduct/GetSubAccountBalance').then((response)=>{
+      print(response.data)
+    }).catchError((err)=>{
+      print(err)
+    });
   }
 
   @override

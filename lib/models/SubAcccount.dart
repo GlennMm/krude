@@ -7,12 +7,12 @@ class SubAccount {
   String countryName;
   int countryID;
   String createdDate;
-  int credit;
-  int debit;
-  Null parentID;
+  double credit;
+  double debit;
+  int parentID;
   int statusID;
-  Null updatedDate;
-  Null beneficiary;
+  String updatedDate;
+  // String beneficiary;
 
   SubAccount(
       {this.line,
@@ -28,7 +28,8 @@ class SubAccount {
       this.parentID,
       this.statusID,
       this.updatedDate,
-      this.beneficiary});
+      // this.beneficiary
+      });
 
   SubAccount.fromJson(Map<String, dynamic> json) {
     line = json['line'];
@@ -44,7 +45,7 @@ class SubAccount {
     parentID = json['parentID'];
     statusID = json['statusID'];
     updatedDate = json['updatedDate'];
-    beneficiary = json['beneficiary'];
+    // beneficiary = json['beneficiary'];
   }
 
   Map<String, dynamic> toJson() {
@@ -62,7 +63,7 @@ class SubAccount {
     data['parentID'] = this.parentID;
     data['statusID'] = this.statusID;
     data['updatedDate'] = this.updatedDate;
-    data['beneficiary'] = this.beneficiary;
+    // data['beneficiary'] = this.beneficiary;
     return data;
   }
 }

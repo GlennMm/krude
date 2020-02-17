@@ -38,16 +38,19 @@ class TransactionsRepository implements ITransation {
 
   @override
   purchaseFuel(model) async {
+    try{
+      FormData form = new FormData();
+      form.add("coupon", model.coupon);
+      form.add('accountId', model.accountId);
 
-    FormData form;
-    form.add("coupon", model.coupon);
-    form.add('accountId', model.accountId);
-
-    await _dio.post(_config.baseUrl + "/Transactions/PurchaseFuel", data: form).then((response) => {
-      print(response.data)
-    }).catchError((err){
-      print(err);
-    });
+      await _dio.post(_config.baseUrl + "/Transactions/PurchaseFuel", data: form).then((response) => {
+        print(response.data)
+      }).catchError((err){
+        print(err);
+      });
+    }catch (e) {
+      print(e);
+    }
   }
 
   @override
