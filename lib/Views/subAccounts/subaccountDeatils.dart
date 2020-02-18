@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:krude_digital/Views/components/appbar.dart';
+import 'package:krude_digital/Views/subAccounts/add-retrect-balance.dart';
 import 'package:krude_digital/repository/ClientProductRepository.dart';
 import 'package:krude_digital/repository/LoggedUser.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:krude_digital/models/SubAcccount.dart';
+import 'package:intl/intl.dart';
 
 class SubAccountDetails extends StatefulWidget {
   SubAccount subAccount;
@@ -30,7 +32,7 @@ class _SubAccountDetailsState extends State<SubAccountDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(),
-      drawer: drawer(context, user),
+      // drawer: drawer(context, user),
       body: Column(
         children: <Widget>[
           Container(
@@ -70,7 +72,7 @@ class _SubAccountDetailsState extends State<SubAccountDetails> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "Station Name :                ${subAccount.accountName}",
+                          "Station Name :                 ${subAccount.accountName}",
                           style: TextStyle(
                             color: Color(0xff355664),
                           ),
@@ -88,7 +90,7 @@ class _SubAccountDetailsState extends State<SubAccountDetails> {
                           ),
                         ),
                         Text(
-                          "Created:                            ${subAccount.createdDate}",
+                          "Created:                            ${new DateFormat('yyyy-MM-dd').parse(subAccount.createdDate).day}-${new DateFormat('yyyy-MM-dd').parse(subAccount.createdDate).month}-${new DateFormat('yyyy-MM-dd').parse(subAccount.createdDate).year}",
                           style: TextStyle(
                             color: Color(0xff355664),
                           ),
@@ -226,18 +228,26 @@ class _SubAccountDetailsState extends State<SubAccountDetails> {
           )
         ],
       ),
-      floatingActionButton: FlatButton.icon(
-          onPressed: () {},
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+        FlatButton.icon(
+          onPressed: () {
+             Navigator.push(context,
+             MaterialPageRoute(builder: (context) => AddRetrctBalance(subAccount)));
+          },
           icon: Icon(
             Icons.add,
             color: Color(0xff355664),
           ),
           label: Text(
-            "Add",
+            "Add/Retract",
             style: TextStyle(
               color: Color(0xff355664),
             ),
-          )),
+          ))
+        ],
+      ),
     );
   }
 }

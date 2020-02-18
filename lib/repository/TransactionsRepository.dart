@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:krude_digital/config.dart';
+import 'package:krude_digital/models/RequestModels/tranfers_to_subaccount.dart';
 import 'package:krude_digital/repository/Interface/ITransactions.dart';
 
 class TransactionsRepository implements ITransation {
@@ -40,8 +42,8 @@ class TransactionsRepository implements ITransation {
   purchaseFuel(model) async {
     try{
       FormData form = new FormData();
-      form.add("coupon", model.coupon);
-      form.add('accountId', model.accountId);
+      // form.add("coupon", model.coupon);
+      // form.add('accountId', model.accountId);
 
       await _dio.post(_config.baseUrl + "/Transactions/PurchaseFuel", data: form).then((response) => {
         print(response.data)
@@ -84,15 +86,31 @@ class TransactionsRepository implements ITransation {
   }
 
   @override
-  transaferFromAccounts() {
+  transaferFromAccounts(data) async {
     // TODO: implement transaferFromAccounts
-    return null;
+    await _dio.post(_config.baseUrl + "/Transactions/TransferFromAccounts", data: json.encode({
+      "coupon": data.coupon.toJson(),
+      "clients": data.clients,
+      "transactingUserID": data.transactingUserID
+    })).then((response) =>
+      print(response.data)
+    ).catchError((err) {
+        print(err);
+    });
   }
 
   @override
-  transferToAccounts() {
+  transferToAccounts(data) async {
     // TODO: implement transferToAccounts
-    return null;
+    await _dio.post(_config.baseUrl + "/Transactions/TransferToAccounts", data: json.encode({
+      "coupon": data.coupon.toJson(),
+      "clients": data.clients,
+      "transactingUserID": data.transactingUserID
+    })).then((response) =>
+      print(response.data)
+    ).catchError((err) {
+        print(err);
+    });
   }
 
   @override

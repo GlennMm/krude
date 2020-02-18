@@ -8,7 +8,6 @@ import 'package:krude_digital/models/Summary.dart';
 import 'package:krude_digital/repository/AccountRepository.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
-import 'package:krude_digital/Views/subAccounts/editSubAccount.dart';
 import 'package:krude_digital/repository/ClientProductRepository.dart';
 import 'package:krude_digital/repository/LoggedUser.dart';
 import '../repository/ProductPricesRepository.dart';
@@ -231,18 +230,7 @@ class _DashboardState extends State<Dashboard> {
                           width: 160.0,
                           child: FlatButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => EditSubAccount(
-                                            user.state.loggedInUser.username,
-                                            user.state.loggedInUser.countryId,
-                                            user.state.loggedInUser
-                                                .accountTypeID,
-                                            user.state.loggedInUser.accountID,
-                                            'user id',
-                                          )));
-                            },
+                                                         },
                             padding: EdgeInsets.all(5.0),
                             child: Card(
                               elevation: 5,

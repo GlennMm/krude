@@ -1,4 +1,5 @@
-import 'package:krude_digital/models/RequestModels/PurchaseFuel.dart';
+// import 'package:krude_digital/models/RequestModels/PurchaseFuel.dart';
+import 'package:krude_digital/models/RequestModels/tranfers_to_subaccount.dart';
 
 abstract class ITransation {
   getTransaction();
@@ -10,7 +11,10 @@ abstract class ITransation {
   sell();
   retractPrintCoupon();
   purchaseFuel(PurchaseFuelRequestModel model);
-  transaferFromAccounts();
-  transferToAccounts();
+  transaferFromAccounts(TransaferRequestModel data);
+  transferToAccounts(TransaferRequestModel data);
   transafer(form);
+}
+
+class PurchaseFuelRequestModel {
 }

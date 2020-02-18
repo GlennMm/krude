@@ -38,7 +38,7 @@ class _LoginFormState extends State<LoginForm> {
                     TextField(
                       controller: username,
                       decoration: InputDecoration(
-                        labelText: 'Username',
+                        labelText: 'Email',
                         labelStyle: TextStyle(
                             fontFamily: 'Monserrat',
                             fontWeight: FontWeight.bold,
@@ -46,7 +46,9 @@ class _LoginFormState extends State<LoginForm> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.green)),
                         icon: Icon(Icons.person),
+                        ke
                       ),
+
                     )
                   ],
                 ),

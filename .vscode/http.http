@@ -1,2 +1,29 @@
-GET https://192.168.100.157:5001/api/Coupons/GetArchivedCoupons?accountId=4 HTTP/1.1
-Content-Type: application/json
+# POST https://localhost:5001/api/Transactions/TransferToAccounts HTTP/1.1
+# Content-Type: application/json
+
+# {
+# 	model:
+# 	{"coupon":{
+# 		"couponID":null,
+# 		"accountID":30004,
+# 		"countryID":250,
+# 		"countryName":"Zimbabwe",
+# 		"countryNameAbrev":null,
+# 		"productID":2,
+# 		"productName":"Diesel",
+# 		"productMeasurement":"Litres",
+# 		"productDescription":null,
+# 		"qrCode":null,
+# 		"quantity":10
+# 	},
+# 	"clients":[30004],
+# 	"transactingUserID":10004}
+# }
+
+# POST https://localhost:5001/api/Authentication/Login HTTP/1.1
+# Content-Type: application/json
+
+# {
+#     email: 'comp2@gmail.com',
+#     password: '@Admin143!'
+# }

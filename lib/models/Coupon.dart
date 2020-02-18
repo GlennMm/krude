@@ -15,7 +15,8 @@ class Coupon {
   int couponTypeID;
 
   Coupon(
-      {this.couponID,
+    {
+      this.couponID,
       this.accountID,
       this.countryID,
       this.countryName,
@@ -26,8 +27,8 @@ class Coupon {
       this.productDescription,
       this.qrCode,
       this.quantity,
-      // [this.price,  this.couponTypeID]
-      });
+    // [this.price,  this.couponTypeID]
+    });
 
   Coupon.fromJson(Map<String, dynamic> json) {
     couponID = json['couponID'];

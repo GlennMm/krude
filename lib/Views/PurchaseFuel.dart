@@ -8,7 +8,7 @@ import 'package:krude_digital/config.dart';
 import 'package:krude_digital/models/Coupon.dart';
 import 'package:krude_digital/models/Product.dart';
 import 'package:krude_digital/models/ProductPrice.dart';
-import 'package:krude_digital/models/RequestModels/PurchaseFuel.dart';
+// import 'package:krude_digital/models/RequestModels/PurchaseFuel.dart';
 import 'package:krude_digital/models/UserModel.dart';
 import 'package:krude_digital/repository/LoggedUser.dart';
 import 'package:krude_digital/repository/ProductPricesRepository.dart';
@@ -186,16 +186,16 @@ class _PurchaseFuelLocalState extends State<PurchaseFuelLocal> {
 
     var transactionRepo = Injector.getAsReactive<TransactionsRepository>();
 
-    PurchaseFuelRequestModel model = new PurchaseFuelRequestModel();
-    model.coupon = coupon;
-    model.accountId = coupon.accountID;
+    // PurchaseFuelRequestModel model = new PurchaseFuelRequestModel();
+    // model.coupon = coupon;
+    // model.accountId = coupon.accountID;
 
-   try {
-      transactionRepo.state.purchaseFuel(model);
-      return print("Done");
-   } catch (err) {
-     return print(err);
-   }
+  //  try {
+  //     transactionRepo.state.purchaseFuel(model);
+  //     return print("Done");
+  //  } catch (err) {
+  //    return print(err);
+  //  }
   }
 
   double calculatePrice(String quantity, List<ProductPrice> products, UserModel user, selected) {

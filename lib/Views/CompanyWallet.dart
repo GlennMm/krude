@@ -5,8 +5,6 @@ import 'package:flutter/painting.dart';
 import 'package:krude_digital/Views/PurchaseInternational.dart';
 import 'package:krude_digital/Views/SwapFuelInternational.dart';
 import 'package:krude_digital/Views/TransferFuel.dart';
-import 'package:krude_digital/Views/subAccounts/editSubAccount.dart';
-import 'package:krude_digital/Views/subAccounts/productDistribution.dart';
 import 'package:krude_digital/config.dart';
 import 'package:krude_digital/models/UserProduct.dart';
 import 'package:krude_digital/repository/ProductsRepository.dart';
@@ -462,15 +460,15 @@ class _WalletState extends State<CWallet> {
                               padding: EdgeInsets.only(left: 50.0, bottom: 10.0),
                               child: ListTile(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => EditSubAccount(
-                                              name,
-                                              CID,
-                                              accountTypeId,
-                                              accountId,
-                                              userId)));
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => EditSubAccount(
+                                  //             name,
+                                  //             CID,
+                                  //             accountTypeId,
+                                  //             accountId,
+                                  //             userId)));
                                 },
                                 leading: Icon(Icons.edit_attributes,
                                     color: Color(0xff355664)),
@@ -487,11 +485,11 @@ class _WalletState extends State<CWallet> {
                               padding: EdgeInsets.only(left: 50.0, bottom: 10.0),
                               child: ListTile(
                                 onTap: () {
-                                  Navigator.pop(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductDistribution()));
+                                  // Navigator.pop(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) =>
+                                              // ProductDistribution()));
                                 },
                                 leading: Icon(Icons.shop, color: Color(0xff355664)),
                                 title: Text(
@@ -807,15 +805,15 @@ class _WalletState extends State<CWallet> {
                               width: 160.0,
                               child: FlatButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => EditSubAccount(
-                                              name,
-                                              CID,
-                                              accountTypeId,
-                                              accountId,
-                                              userId)));
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => EditSubAccount(
+                                  //             name,
+                                  //             CID,
+                                  //             accountTypeId,
+                                  //             accountId,
+                                  //             userId)));
                                 },
                                 padding: EdgeInsets.all(5.0),
                                 child: Card(
